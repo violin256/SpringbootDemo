@@ -1,0 +1,348 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-select=no">
+  <title></title>
+   <script type="text/javascript" src="js/vue.js"></script>
+   <link href="layui/css/layui.css" rel="stylesheet"/>
+	 <script type="text/javascript" src="layui/layui.js"></script>
+	 <script type="text/javascript"  src="js/jquery-3.4.1.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <script src="js/bootstrap.min.js"></script>
+  <style >
+     body{
+
+      margin-top: 30px;
+
+      background-color: #c6c5c3;
+
+     }
+     .container{
+
+      outline: 1px solid block;
+     }
+    .col-md-1{
+
+      outline: 1px solid block;
+      height: 80px;
+     }
+     .col-md-3,.col-md-9{
+
+      outline: 1px solid block;
+      height: 320px;
+     }
+     .col-sm-3 h3{
+        float: right;
+     }
+  </style>
+
+
+</head>
+<body>
+<div id="app">
+<!--登陆窗口-->
+<div id="mymodal" class="modal fade bs-example-modal-sm">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+   <div class="modal-header">
+      <button class="close" data-dismiss="modal">&times;</button>
+      <h4>登陆</h4>
+   </div>
+   <div class="modal-body">
+
+      <input type="text" class="form-control" name="user" v-model="uname" placeholder="用户名"/>
+      <p>&nbsp;</p>
+      <input type="text" class="form-control" name="pwd" v-model="upwd"/>
+      <br><a href="register">去注册</a>
+   </div>
+   <div class="modal-footer">
+      <button class="btn btn-default" @click="login">登陆</button>
+      <button class="btn btn-primary" data-dismiss="modal">关闭</button>
+   </div>
+</div>
+</div>
+</div>
+
+<!--<script >
+$('.modal').modal();</script>-->
+<!--登陆窗口结束-->
+
+<div class="container" style="background-color:#fff;">
+
+<div class="row">
+<div class="col-md-1" >
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#833b3b">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+
+</button>
+
+<!--导航条logo-->
+<a class="navbar-brand" href="#">VIOLUI</a>
+<form name="form2" class="navbar-form navbar-left" role="search" action="search">
+<div class="form-group">
+
+   <input type="text" class="form-control" placeholder="Search Vadio name" style="width:250px; height: 30px;" name="type">
+   </div>
+<button type="submit" class="btn btn-default">搜索</button>
+</form>
+</div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav" id="nav">
+<li class="active"><a href="index">首页</a></li>
+<li id="l2"  class=""><a href="classify?tid=1&type=自媒体">自媒体</a></li>
+<li id="l3"  class=""><a href="classify?tid=2&type=韩剧">韩剧</a></li>
+<li id="l4"  class=""><a href="classify?tid=2&type=电视剧">电视剧</a></li>
+<li  id="l5"  class=""><a href="classify?tid=2&type=综艺">综艺</a></li>
+<li id="l6"  class=""><a href="classify?tid=2&type=电影">电影</a></li>
+<li id="l7"  class=""><a href="classify?tid=2&type=日剧">日剧</a></li>
+<li id="l8"  class=""><a href="classify?tid=2&type=动漫">动漫</a></li>
+<li id="l9"  class=""><a href="classify?tid=2&type=美剧">美剧</a></li>
+</ul>
+
+  <ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
+      <li><a href="#mymodal" data-toggle="modal" data-target="#mymodal">登陆</a></li>
+      <li><a href="#" data-toggle="modal" @click="exit" >退出</a></li>
+  </ul>
+</div>
+</div>
+<!--导航结束-->
+
+</div>
+<!--登陆窗口和导航条的row完全独立-->
+</div>
+</div>
+<!--内容-->
+<div class="container container-fluid" style="background-color:#fff;">
+<div class="row">
+<div class="col-md-2 col-sm-10 col-xs-10">
+ <!--一级菜单-->
+ <ul id="main-nav" class="nav nav-tabs nav-stacked" style="border: 1px solid #000">
+ <!--用户头像-->
+   <li id="liuser" style="text-align: center;display: none">
+    已登陆
+   </li>
+   <!--用户头像结束--> 
+   <li  >
+     <a href="#systemSetting1" class="nav-header collapsed" data-toggle="collapse"  style="color: #000;">
+     <i class="glyphicon glyphicon-film"></i>视频片库
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting1" class="nav nav-list collapse secondmenu" style="height: 0px;">
+       <li><a href="c" style="color: #000;"><i class="glyphicon glyphicon-th-list"></i>视频分类</a></li>
+       
+    </ul>
+   </li>
+   <li>
+     <a href="#systemSetting2" class="nav-header collapsed" data-toggle="collapse" style="color: #000;">
+     <i class="glyphicon glyphicon-cog"></i>个人中心
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting2" class="nav nav-list collapse secondmenu" style="height: 0px;">
+       <li><a href="userc" style="color: #000;"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+    </ul>
+   </li>
+     <li>
+     <a href="histrory" style="color: #000;"><i class="glyphicon glyphicon-time">播放记录</i></a>
+   </li>
+   <li>
+     <a href="download" style="color: #000;"><i class="glyphicon glyphicon-download">下载管理</i></a>
+   </li>
+   <li>
+     <a href="favorite" style="color: #000;"><i class="glyphicon glyphicon-star">我的收藏</i></a>
+   </li>
+   <li>
+     <a href="#systemSetting3" class="nav-header collapsed" data-toggle="collapse" style="color: #000;">
+     <i class="glyphicon glyphicon-th-list"></i>更多
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+      
+       <li><a href="help" style="color: #000;"><i class="glyphicon glyphicon-cloud"></i>帮助与反馈</a></li>
+    </ul>
+   </li>
+ </ul>
+</div>
+
+
+<div class="col-md-10 col-sm-10 col-xs-10" style="height: 500px;">
+<div v-if="isLogin">
+  <div v-if="list.length!=0" v-for="(item,i) in list">   
+          
+     
+     <div class="thumbnail" style="height: 200px;">
+	     <a :href="'detail?vname='+item[0]">
+	     	 <img v-bind:src="item[1]" style="float: left;width:150px;height:150px;margin:10px"/></a>
+		     <div class="caption">
+			     <h3>{{item[0]}}</h3>
+			     <p>&nbsp;</p>
+			     <a v-bind:src="'detail?vname='+item[0]" >
+			     <p>下载次数:&nbsp;&nbsp;&nbsp;{{item[4]}}</p>
+			     </a>
+			     
+		     </div>
+		   </a>
+     </div>
+  </div>
+      
+	<div style="height: 440px;" v-if="list.length==0" align="center">没有结果</div>
+</div>
+<div style="height: 440px;" v-if="isLogin==false" align="center">请先登录</div>
+	
+
+
+</div>
+</div>
+</div>
+
+<!--footer-->
+<div style="background-color:#833b3b">
+<footer id="footnar">
+<div class="container">
+<div class="clear"></div>
+
+<div id="copy_txt" style="width:250px;margin: auto;">Copyright &copy;violui&nbsp;2017...版权所有<p>学校：广州大学纺织服装学院</p>
+</div>
+</div>
+</footer>
+
+</div>
+</div>
+<script type="text/javascript">
+	new Vue({
+  		el: "#app",
+  		data: {
+  			list:[{
+  			
+  			}],
+  			page:0,
+  			totalPage:'',
+  			type:'',
+  			totalElements:'',
+  			userinfo:{},
+  			isLogin:false,
+  			uname:''
+  			,upwd:''
+    		
+  		}
+  		,created() {
+				    let that=this;
+				    $(function () {
+				        
+				        	$(document).ready(function(){
+				        		  console.log("jhd");
+				        			that.requestUrl("/getUserInfo","post",1,1);
+				        			that.requestUrl("/downloadInfo","post",'',2);
+				        			
+				        	});
+				        
+				});
+  		}
+  		,methods: {
+  			requestUrl(urls,types,str,setType){
+			   	let that=this;
+			   	$.ajax({
+		      url:urls,
+		      type:types,
+		      data:str,
+		      dataType:'json',
+		      success:function (data) {
+		        console.log("data",data);
+		        if(setType==1){
+		        	if(data!=null){
+		        		that.isLogin=true;
+		        		that.userinfo=data;
+		        	}
+		        		
+		        	
+		        }
+		        else
+		        	that.list = data;
+		        
+		        
+		        
+		      },
+		      error:function (data) {
+									//alert("请求失败"+data);
+		      }
+		      });
+			  },
+			  requestUrl2(urls,types,str,setType){
+			   	let that=this;
+			   	$.ajax({
+		      url:urls,
+		      type:types,
+		      data:str,
+		      dataType:'json',
+		      contentType:'application/json',
+		      success:function (data) {
+		        console.log(data);
+		        that.list = data;
+		      },
+		      error:function (data) {
+									//alert("请求失败"+data);
+		      }
+		      });
+			  },
+			  exit:function() {
+			  	that.requestUrl("/userinfo","get",1,1);
+			  	alert("已退出登录！");
+			  },
+  		 	 login:function() {
+                let that = this;
+                
+                if(that.uname.trim()!="" && that.upwd.trim()!=""){
+                	var list = {
+                   		uname:that.uname,
+                        upwd: that.upwd
+                    
+	                };
+	                
+	                $.ajax({
+	                        url:'/userinfo/login',
+	                        type:'POST',
+	                        data:JSON.stringify(list),
+	                        dataType:'json',
+	                        contentType:'application/json',
+	                        success:function (data) {
+	                        	alert(data.msg);
+	                        	if(data.code>0){
+	                        		$('#mymodal').modal('hide');
+	                        		window.location.reload();
+	                        	}
+	                        		
+	                        	
+	                        },
+	                        error:function (data) {
+								alert("登录失败"+data.msg);
+	                        }
+	                });
+					
+                }else{
+					alert("用户名和密码不能空");
+                	
+                }
+               
+                
+           },
+           register:function(){
+           		window.location.href="register";
+           }
+           	
+  		}
+  		,
+        watch: {
+        }
+	})
+</script>
+</body>
+</html>

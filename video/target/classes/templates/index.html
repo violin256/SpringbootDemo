@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-select=no">
+	<title>刘慧玲27</title>
+	 <script type="text/javascript" src="js/vue.js"></script>
+   <link href="layui/css/layui.css" rel="stylesheet"/>
+	 <script type="text/javascript" src="layui/layui.js"></script>
+	 <script type="text/javascript"  src="js/jquery-3.4.1.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+   <script src="js/bootstrap.js"></script>
+  <style >
+     body{
+
+      margin-top: 30px;
+
+      background-color: #c6c5c3;
+
+     }
+     .container{
+
+      outline: 1px solid block;
+     }
+    .col-md-1{
+
+      outline: 1px solid block;
+      height: 80px;
+     }
+     .col-md-3,.col-md-9{
+
+      outline: 1px solid block;
+      height: 320px;
+     }
+     .col-sm-3 h3{
+        float: right;
+     }
+  </style>
+
+
+</head>
+<body>
+<!--登陆窗口-->
+<div id="app">
+<div id="mymodal" class="modal fade bs-example-modal-sm">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+   <div class="modal-header">
+      <button class="close" data-dismiss="modal">&times;</button>
+      <h4>登陆</h4>
+   </div>
+   <div class="modal-body">
+
+      <input type="text" class="form-control" name="user" v-model="uname" placeholder="用户名"/>
+      <p>&nbsp;</p>
+      <input type="text" class="form-control" name="pwd" v-model="upwd"/>
+      <input type="checkbox" />下次登陆
+      <br><a href="register">去注册</a>
+   </div>
+   <div class="modal-footer">
+      <button class="btn btn-default" @click="login">登陆</button>
+      <button class="btn btn-primary" data-dismiss="modal">关闭</button>
+   </div>
+</div>
+</div>
+</div>
+<!--<script >
+$('.modal').modal();</script>-->
+<!--登陆窗口结束-->
+
+<div class="container" style="background-color:#fff;">
+
+<div class="row">
+<div class="col-md-1" >
+<div class="navbar navbar-inverse navbar-fixed-top" style="
+background-color:#833b3b">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+
+</button>
+
+<!--导航条logo-->
+<a class="navbar-brand" href="#">VIOLUI</a>
+<form class="navbar-form navbar-left" role="search">
+<div class="form-group">
+
+   <input type="text" class="form-control" placeholder="Search Vadio" style="width:250px; height: 30px;">
+   </div>
+<button type="submit" class="btn btn-default">搜索</button>
+</form>
+</div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav" id="nav">
+<li class="active"><a href="index">首页</a></li>
+<li id="l2"  class=""><a href="classify?tid=1&type=自媒体">自媒体</a></li>
+<li id="l3"  class=""><a href="classify?tid=2&type=韩剧">韩剧</a></li>
+<li id="l4"  class=""><a href="classify?tid=2&type=电视剧">电视剧</a></li>
+<li  id="l5"  class=""><a href="classify?tid=2&type=综艺">综艺</a></li>
+<li id="l6"  class=""><a href="classify?tid=2&type=电影">电影</a></li>
+<li id="l7"  class=""><a href="classify?tid=2&type=日剧">日剧</a></li>
+<li id="l8"  class=""><a href="classify?tid=2&type=动漫">动漫</a></li>
+<li id="l9"  class=""><a href="classify?tid=2&type=美剧">美剧</a></li>
+<li class="dropdown">
+<a href="#">自制剧</a><span class="caret"></span>
+<!--<ul>
+<li>我的博客</li>
+<li>我的博客</li>
+</ul>
+</li>--></li>
+</ul>
+
+  <ul class="nav navbar-nav navbar-right">
+      <li><a href="#mymodal" data-toggle="modal" data-target="#mymodal">登陆</a></li>
+      <li><a href="#" data-toggle="modal" @click="exit" >退出</a></li>
+  </ul>
+</div>
+</div>
+<!--导航结束-->
+
+</div>
+<!--登陆窗口和导航条的row完全独立-->
+</div>
+</div>
+<!--内容-->
+<div class="container container-fluid" style="background-color:#fff;">
+<div class="row">
+<div class="col-md-2 col-sm-10 col-xs-10">
+ <!--一级菜单-->
+ <ul id="main-nav" class="nav nav-tabs nav-stacked" style="border: 1px solid #000">
+ <!--用户头像-->
+   <li id="liuser" style="text-align: center;display: none">
+    已登陆
+   </li>
+   <!--用户头像结束--> 
+   <li  >
+     <a href="#systemSetting1" class="nav-header collapsed" data-toggle="collapse"  style="color: #000;">
+     <i class="glyphicon glyphicon-film"></i>视频片库
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting1" class="nav nav-list collapse secondmenu" style="height: 0px;">
+       <li><a href="c" style="color: #000;"><i class="glyphicon glyphicon-th-list"></i>视频分类</a></li>
+       
+    </ul>
+   </li>
+   <li>
+     <a href="#systemSetting2" class="nav-header collapsed" data-toggle="collapse" style="color: #000;">
+     <i class="glyphicon glyphicon-cog"></i>个人中心
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting2" class="nav nav-list collapse secondmenu" style="height: 0px;">
+       <li><a href="userc" style="color: #000;"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+    </ul>
+   </li>
+     <li>
+     <a href="histrory" style="color: #000;"><i class="glyphicon glyphicon-time">播放记录</i></a>
+   </li>
+   <li>
+     <a href="download" style="color: #000;"><i class="glyphicon glyphicon-download">下载管理</i></a>
+   </li>
+   <li>
+     <a href="favorite" style="color: #000;"><i class="glyphicon glyphicon-star">我的收藏</i></a>
+   </li>
+   <li>
+     <a href="#systemSetting3" class="nav-header collapsed" data-toggle="collapse" style="color: #000;">
+     <i class="glyphicon glyphicon-th-list"></i>更多
+     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+     </a>
+    <!--2级菜单-->
+    <ul id="systemSetting3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+      
+       <li><a href="help" style="color: #000;"><i class="glyphicon glyphicon-cloud"></i>帮助与反馈</a></li>
+    </ul>
+   </li>
+ </ul>
+</div>
+
+<div class="col-md-10">
+<!-- 图片代码 开始 -->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+<!-- 圆圈指示符-->
+<ol class="carousel-indicators">
+<li data-targe="#myCarousel" data-slide-to="0" class="active"></li>
+<li data-targe="#myCarousel" data-slide-to="1"></li>
+<li data-targe="#myCarousel" data-slide-to="2"></li>
+<li data-targe="#myCarousel" data-slide-to="3"></li>
+<li data-targe="#myCarousel" data-slide-to="4"></li>
+<li data-targe="#myCarousel" data-slide-to="5"></li>
+</ol>
+<!-- 图片容器-->
+<div class="carousel-inner">
+<div class="item active">
+<a href="detail?vname=你的名字">
+<img src="images/yourname.PNG" alt="...">
+<div class="carousel-caption">
+<p>你的名字</p>
+</div>
+</a>
+</div>
+<div class="item">
+<a href="detail?vname=拜见宫主大人">
+<img src="images/04.PNG" alt="...">
+<div class="carousel-caption">
+</div>
+</a>
+</div>
+<div class="item">
+<a href="detail?vname=无法拥抱的你">
+<img src="images/02.PNG" alt="...">
+<div class="carousel-caption">
+</div>
+</a>
+</div>
+<div class="item">
+<a href="detail?vname=亲爱的客栈">
+<img src="images/03.PNG" alt="...">
+<div class="carousel-caption">
+</div>
+</a>
+</div>
+<div class="item">
+<a href="detail?vname=校花的贴身高手2">
+<img src="images/05.PNG" alt="...">
+<div class="carousel-caption">
+</div>
+</a>
+</div>
+<div class="item">
+<a href="detail?vname=唤醒杀手">
+<img src="images/01.PNG" alt="...">
+<div class="carousel-caption">
+</div>
+</a>
+</div>
+</div>
+
+<!--左右控制按钮 -->
+<a href="#myCarousel" class="left carousel-control" data-slide="prev">
+<span class="glyphicon-chevron-left"></span></a>
+<a href="#myCarousel" class="right carousel-control" data-slide="next">
+<span class="glyphicon-chevron-right"></span></a>
+</div>
+</div>
+<!--图片 代码 结束 -->
+</div>
+</div><!--1_row-->
+<!--1-->
+</div>
+
+<div class="container" style="background-color:#fff;">
+<div class="row">
+<div class="col-sm-9"><h2>热门</h2></div>
+<div class="col-sm-3"><h3>更多&gt;&gt;</h3></div>
+</div>
+<!--3-->
+<div class="row">
+<div class="col-sm-6 col-md-3 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=快乐大本营">
+<img src="images/happyFramily.PNG">
+<div class="caption">
+<h3>快乐大本营</h3>
+<p>2017-12-02</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-3 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=亲爱的客栈">
+<img src="images/qadkz.PNG">
+<div class="caption">
+<h3>亲爱的客栈</h3>
+<p>2017-12-02</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-3 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=绣春刀">
+<img src="images/Y.PNG">
+<div class="caption">
+<h3>绣春刀</h3>
+<p>主演：杨幂、张震&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-3 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=Healer">
+<img src="images/Healer.PNG">
+<div class="caption">
+<h3>Healer</h3>
+<p>主演：池昌旭、朴敏英&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+</div><!--3_row-->
+<div class="row">
+<div class="col-sm-9"><h2>电影</h2></div>
+<div class="col-sm-3"><h3>更多&gt;&gt;</h3></div>
+</div>
+<!--4-->
+<div class="row">
+<div class="col-sm-6 col-md-4 col-xs-12">
+<div class="thumbnail">
+<a href="detail?vname=天才枪手">
+<img src="images/tcqs.PNG">
+<div class="caption">
+<h3>天才枪手</h3>
+<p>主演：纳塔吾·彭皮里亚执导，茱蒂蒙·琼查容苏因、查侬·散顶腾古、依莎亚·贺苏汪、披纳若·苏潘平佑...</p>
+<p>该片讲述了天才高中生小琳在国际会考上跨国为富家公子作弊来牟取暴利，并与另一名记忆力极佳的天才学生班克，策划了一场跨时区的完美作弊。该片于2017年5月3日在泰国上映，2017年10月13日在中国内地上映。</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-8 col-xs-12">
+<div class="col-sm-6 col-md-4 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=导盲小犬">
+<img src="images/dmxq.PNG">
+<div class="caption">
+<h3>导盲小犬</h3>
+<p>改编自日本作家石黑谦吾的长篇小说《再见了，可鲁》，由朝鲜裔日本导演崔洋一执导&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-4 col-xs-6">
+<div class="thumbnail">
+<a href="detail?vname=丧尸屠城">
+<img src="images/ss.PNG">
+<div class="caption">
+<h3>丧尸屠城</h3>
+<p>戴金垸自身花了5年来沉淀自己，“多年磨一剑”的用心程度展现出他对该剧的倾注与热爱。&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-4 col-xs-12">
+<div class="thumbnail">
+<a href="detail?vname=50度飞">
+<img src="images/50dh.PNG">
+<div class="caption">
+<h3>50度飞</h3>
+<p>两人重新投入恋情中时，格雷过去生活中发生的事情，像阴影一样笼罩在他们头顶上。&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+</div><!--4内1row-->
+
+<div class="col-sm-6 col-md-4 col-xs-9">
+<div class="thumbnail">
+<a href="detail?vname=蜘蛛侠：英雄归来">
+<img src="images/yxgl.PNG">
+<div class="caption">
+<h3>蜘蛛侠：英雄归来</h3>
+<p>讲述了彼得·帕克在超级英雄身份与高中生活之间面临的抉择。9月8日在中国大陆公映&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-sm-6 col-md-4 col-xs-9">
+<div class="thumbnail">
+<a href="detail?vname=一吻定情2">
+<img src="images/onekiss.PNG">
+<div class="caption">
+<h3>一吻定情2</h3>
+<p>日剧《一吻定情～Love in TOKYO》的续集，
+该剧主要讲述琴子结束了对直树的单恋后，二人结婚后的爱情故事&gt;&gt;&gt;</p>
+</div>
+</a>
+</div>
+</div>
+
+<!--4内2row-->
+
+</div><!--4_row-->
+<!--栅格化布局-->
+</div>
+</div>
+
+<!--footer-->
+<div style="background-color:#913844">
+<footer id="footnar">
+<div class="container">
+<div class="clear"></div>
+
+<div id="copy_txt" style="width:250px;margin: auto;">Copyright &copy;violui&nbsp;2017...版权所有<p>学校：广州大学纺织服装学院</p>
+</div>
+</div>
+</footer>
+
+
+</div>
+</div>
+<script type="text/javascript">
+	new Vue({
+  		el: "#app",
+  		data: {
+  			uname:''
+  			,upwd:''
+    		
+  		}
+  		,methods: {
+  		 	 login:function() {
+                let that = this;
+                
+                if(that.uname.trim()!="" && that.upwd.trim()!=""){
+                	var list = {
+                   		uname:that.uname,
+                        upwd: that.upwd
+                    
+	                };
+	                
+	                $.ajax({
+	                        url:'/userinfo/login',
+	                        type:'POST',
+	                        data:JSON.stringify(list),
+	                        dataType:'json',
+	                        contentType:'application/json',
+	                        success:function (data) {
+	                        	alert(data.msg);
+	                        	if(data.code>0){
+	                        		$('#mymodal').modal('hide');
+	                        		window.location.reload();
+	                        	}
+	                        },
+	                        error:function (data) {
+								alert("登录失败"+data.msg);
+	                        }
+	                });
+					
+                }else{
+					alert("用户名和密码不能空");
+                	
+                }
+               
+                
+           },
+           exit:function() {
+			  	that.requestUrl("/userinfo","get",1,1);
+			  	alert("已退出登录！");
+			  },
+           register:function(){
+           		window.location.href="register";
+           }
+  		}
+  		,
+        watch: {
+        }
+	})
+</script>
+
+</body>
+</html>

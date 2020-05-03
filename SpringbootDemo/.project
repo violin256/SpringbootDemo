@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>video-resources</name>
+	<name>SpringbootDemo</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1587974992756</id>
+			<id>1588173563396</id>
 			<name></name>
 			<type>26</type>
 			<matcher>

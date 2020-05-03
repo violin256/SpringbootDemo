@@ -198,13 +198,14 @@ background-color:#833b3b">
         							tid=window.decodeURIComponent(urlType.substring(4,5));
         							type=window.decodeURIComponent(urlType.substring(11));
         							console.log(tid+"   "+type);
-        							that.type="type="+urlType;
+        							that.type=type;
+        							that.tid=tid;
         							var str={
         								tid:tid,
         								type:that.type
         							};
-				        			that.requestUrl("/VideoInfo","get","tid="+tid+"&type="+type,1);
-				        			that.type=urlType;
+				        			that.requestUrl("/VideoInfo","get",str,1);
+				        			
 				        	});
 				        
 				});
@@ -300,6 +301,7 @@ background-color:#833b3b">
 		            	else{
 		            		that.page=0;
 			            	var src={
+			            		tid:tid,
 			            		type:that.type,
 		            		  page:that.page}
 			            	that.requestUrl("/VideoInfo","get",src,1);
@@ -316,6 +318,7 @@ background-color:#833b3b">
 		            	else{
 		            		that.page--;
 		            		var src={
+		            			tid:tid,
 			            		type:that.type,
 		            		  page:that.page}
 			            	that.requestUrl("/VideoInfo","get",src,1);
@@ -327,29 +330,13 @@ background-color:#833b3b">
 		            	console.log("",$("#skipPage").val());
 		            	if($("#skipPage").val()>0&&$("#skipPage").val()<=that.totalPage){
 		            		that.page=parseInt($("#skipPage").val())-1;
-		            		var size=0
-		            		var temp=8*(that.page+1);
-		            		//不够8条数据
-		            		if(temp>that.totalElements){
-		            			
-		            			size=that.totalElements-that.page*8;
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:size
-											}
-		            			that.requestUrl("/findEndPage","get",src,2);
-		            		}else{
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:8
-											}
+
+		            		var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
 		            			that.requestUrl("/VideoInfo","get",src,1);
-		            		}
-		            		
-		            		console.log(temp,src);
-		            		
 		            		
 			            	
 		            	}else{
@@ -367,26 +354,13 @@ background-color:#833b3b">
 		            	}
 		            	else{
 		            		that.page++;
-		            		var size=0
-		            		var temp=8*(that.page+1);
-		            		//不够8条数据
-		            		if(temp>that.totalElements){
-		            			
-		            			size=that.totalElements-that.page*8;
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:size
-											}
-		            			that.requestUrl("/findEndPage","get",src,2);
-		            		}else{
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:8
-											}
+		            		var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
 		            			that.requestUrl("/VideoInfo","get",src,1);
-		            		}
+		            			
 		            	}
 		            	
 		            },
@@ -398,26 +372,12 @@ background-color:#833b3b">
 		            	}
 		            	else{
 			            	that.page=that.totalPage-1;
-			            	var size=0
-		            		var temp=8*(that.page+1);
-		            		//不够8条数据
-		            		if(temp>that.totalElements){
-		            			
-		            			size=that.totalElements-that.page*8;
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:size
-											}
-		            			that.requestUrl("/findEndPage","get",src,2);
-		            		}else{
-		            			var src={
-												type:that.type,
-												page:that.page,
-												size:8
-											}
+			            	var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
 		            			that.requestUrl("/VideoInfo","get",src,1);
-		            		}
 		            	}
 		            }
   		}

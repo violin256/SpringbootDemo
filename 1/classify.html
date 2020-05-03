@@ -1,0 +1,390 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-select=no">
+  <title></title>
+   <script type="text/javascript" src="js/vue.js"></script>
+   <link href="layui/css/layui.css" rel="stylesheet"/>
+	 <script type="text/javascript" src="layui/layui.js"></script>
+	 <script type="text/javascript"  src="js/jquery-3.4.1.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <script src="js/bootstrap.min.js"></script>
+  <style >
+     body{
+
+      margin-top: 30px;
+
+      background-color: #c6c5c3;
+
+     }
+     .container{
+
+      outline: 1px solid block;
+     }
+    .col-md-1{
+
+      outline: 1px solid block;
+      height: 80px;
+     }
+     .col-md-3,.col-md-9{
+
+      outline: 1px solid block;
+      height: 320px;
+     }
+     .col-sm-3 h3{
+        float: right;
+     }
+  </style>
+
+
+</head>
+<body>
+<div id="app">
+<!--登陆窗口-->
+<div id="mymodal" class="modal fade bs-example-modal-sm">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+   <div class="modal-header">
+      <button class="close" data-dismiss="modal">&times;</button>
+      <h4>登陆</h4>
+   </div>
+   <div class="modal-body">
+			<input type="text" class="form-control" name="user" v-model="uname" placeholder="用户名"/>
+      <p>&nbsp;</p>
+      <input type="text" class="form-control" name="pwd" v-model="upwd"/>
+      <br><a href="register">去注册</a>
+   </div>
+   <div class="modal-footer">
+      <button class="btn btn-default" @click="login">登陆</button>
+      <button class="btn btn-primary" data-dismiss="modal">关闭</button>
+   </div>
+</div>
+</div>
+</div>
+<!--<script >
+$('.modal').modal();</script>-->
+<!--登陆窗口结束-->
+
+<div class="container" style="background-color:#fff;">
+
+<div class="row">
+<div class="col-md-1" >
+<div class="navbar navbar-inverse navbar-fixed-top" style="
+background-color:#833b3b">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+
+</button>
+
+<!--导航条logo-->
+<a class="navbar-brand" href="#">VIOLUI</a>
+<form name="form2" class="navbar-form navbar-left" role="search" action="search">
+<div class="form-group">
+
+   <input type="text" class="form-control" placeholder="Search Vadio name" style="width:250px; height: 30px;" name="type">
+   </div>
+<button type="submit" class="btn btn-default">搜索</button>
+</form>
+</div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav" id="nav">
+<li class="active"><a href="index">首页</a></li>
+<li id="l2"  class=""><a href="classify?tid=1&type=自媒体">自媒体</a></li>
+<li id="l3"  class=""><a href="classify?tid=2&type=韩剧">韩剧</a></li>
+<li id="l4"  class=""><a href="classify?tid=2&type=电视剧">电视剧</a></li>
+<li  id="l5"  class=""><a href="classify?tid=2&type=综艺">综艺</a></li>
+<li id="l6"  class=""><a href="classify?tid=2&type=电影">电影</a></li>
+<li id="l7"  class=""><a href="classify?tid=2&type=日剧">日剧</a></li>
+<li id="l8"  class=""><a href="classify?tid=2&type=动漫">动漫</a></li>
+<li id="l9"  class=""><a href="classify?tid=2&type=美剧">美剧</a></li>
+</ul>
+
+  <ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
+      <li><a href="#mymodal" data-toggle="modal" data-target="#mymodal">登陆</a></li>
+      <li><a href="#" data-toggle="modal" @click="exit" >退出</a></li>
+  </ul>
+</div>
+</div>
+</div>
+</div></div>
+<!--导航结束-->
+
+<!--内容--> 
+<div class="container" style="background-color:#fff;">
+<div class="row">
+<div class="col-md-10 col-sm-10 col-xs-10"></div></div></div>
+<div class="container" style="background-color:#fff;">
+<div class="row">
+
+<div v-for="(item,i) in list" class="col-sm-6 col-md-3 col-xs-6" style="height: 400px;margin-bottom:20px">
+	<div >
+	<img  v-bind:src="item.vurl" style="width: 200px;">
+		<div class="caption">
+			<a  :href="'detail?vname='+item.vname">
+				<div class="caption">
+				<h3>{{item.vname}}</h3>
+				<p>点击量: {{item.clicks}}</p>
+				<p>日期：{{item.dates}}</p>
+				<p>主演：{{item.protogonists}}</p>
+				</div>
+			</a>
+		</div>
+	</div>	
+</div>
+
+<div class="col-sm-10 col-md-10 col-xs-10" v-if="totalPage!=0" >
+	<div class="aa" align="center">
+	一共 {{totalPage}}页&nbsp;&nbsp;&nbsp;&nbsp;
+			  			<button class="layui-btn layui-btn-sm layui-btn-primary"  @click="fristPage" >首页 </button>
+			  			
+			  			<button class="layui-btn layui-btn-sm layui-btn-primary"  @click="lastPage" ><i class="layui-icon layui-icon-left"></i> </button>
+			  			&nbsp;&nbsp;&nbsp;&nbsp;当前页：{{page+1}}&nbsp;&nbsp;&nbsp;&nbsp;
+			  			跳转到：第&nbsp;&nbsp; <input type="text" id="skipPage"  size="3"/>&nbsp;&nbsp;页&nbsp;&nbsp;
+			  			<button class="layui-btn layui-btn-sm layui-btn-primary"  @click="skipPage" >跳转</button>
+			  			
+			  			<button class="layui-btn layui-btn-sm layui-btn-primary"  @click="naxtPage" ><i class="layui-icon layui-icon-right"></i> </button>
+			  			<button class="layui-btn layui-btn-sm layui-btn-primary"  @click="endPage" >尾页 </button>
+	</div>
+</div>
+
+
+<div style="height: 440px;" v-if="totalPage==0" align="center">没有结果</div>
+<p style="margin:100px;">&nbsp;</p>
+</div>
+</div>
+</div>
+<!--2-->
+<!--footer-->
+<div style="background-color:#833b3b">
+<footer id="footnar">
+<div class="container">
+<div class="clear"></div>
+
+<div id="copy_txt" style="width:250px;margin: auto;">Copyright &copy;violui&nbsp;2017...版权所有
+<p>学校：广州大学纺织服装学院</p>
+</div></div>
+</footer>
+</div>
+
+</div>
+<script type="text/javascript">
+	new Vue({
+  		el: "#app",
+  		data: {
+  			list:[{}],
+  			page:0,
+  			totalPage:'',
+  			type:'',
+  			totalElements:'',
+  			uname:''
+  			,upwd:''
+    		
+  		}
+  		,created() {
+				    let that=this;
+				    $(function () {
+				        
+				        	$(document).ready(function(){
+				        		//获取url中的参数值
+        							var urlType=window.location.search.substring(1);
+        							console.log(urlType);
+        							
+        							tid=window.decodeURIComponent(urlType.substring(4,5));
+        							type=window.decodeURIComponent(urlType.substring(11));
+        							console.log(tid+"   "+type);
+        							that.type=type;
+        							that.tid=tid;
+        							var str={
+        								tid:tid,
+        								type:that.type
+        							};
+				        			that.requestUrl("/VideoInfo","get",str,1);
+				        			
+				        	});
+				        
+				});
+  		}
+  		,methods: {
+  			requestUrl(urls,types,str,setType){
+			   	let that=this;
+			   	$.ajax({
+		      url:urls,
+		      type:types,
+		      data:str,
+		      dataType:'json',
+		      success:function (data) {
+		        console.log("data",data);
+		        if(setType==1){
+		        	that.totalPage=data.totalPages;
+		        	that.totalElements=data.totalElements;
+		        	that.list = data.content;
+		        }else
+		        	that.list = data;
+		        
+		        
+		        
+		      },
+		      error:function (data) {
+									//alert("请求失败"+data);
+		      }
+		      });
+			  },
+			  requestUrl2(urls,types,str,setType){
+			   	let that=this;
+			   	$.ajax({
+		      url:urls,
+		      type:types,
+		      data:str,
+		      dataType:'json',
+		      contentType:'application/json',
+		      success:function (data) {
+		        console.log(data);
+		        that.list = data;
+		      },
+		      error:function (data) {
+									//alert("请求失败"+data);
+		      }
+		      });
+			  },
+			  exit:function() {
+			  	that.requestUrl("/userinfo","get",1,1);
+			  	alert("已退出登录！");
+			  },
+  		 	 login:function() {
+                let that = this;
+                
+                if(that.uname.trim()!="" && that.upwd.trim()!=""){
+                	var list = {
+                   		uname:that.uname,
+                        upwd: that.upwd
+                    
+	                };
+	                
+	                $.ajax({
+	                        url:'/userinfo/login',
+	                        type:'POST',
+	                        data:JSON.stringify(list),
+	                        dataType:'json',
+	                        contentType:'application/json',
+	                        success:function (data) {
+	                        	alert(data.msg);
+	                        	if(data.code>0){
+	                        		$('#mymodal').modal('hide');
+	                        		window.location.reload();
+	                        	}
+	                        },
+	                        error:function (data) {
+								alert("登录失败"+data.msg);
+	                        }
+	                });
+					
+                }else{
+					alert("用户名和密码不能空");
+                	
+                }
+               
+                
+           },
+           register:function(){
+           		window.location.href="register";
+           },
+           			fristPage:function(){
+		            	let that=this;
+		            	if(that.page==0)
+		            		alert("已经是第一页了！");
+		            	else{
+		            		that.page=0;
+			            	var src={
+			            		tid:tid,
+			            		type:that.type,
+		            		  page:that.page}
+			            	that.requestUrl("/VideoInfo","get",src,1);
+		            	}
+		            	
+		            },
+		            lastPage:function(){
+		            	let that=this;
+		            	
+		            	if(that.page<=0){
+		            		
+		            		alert("已经是第一页了！");
+		            	}
+		            	else{
+		            		that.page--;
+		            		var src={
+		            			tid:tid,
+			            		type:that.type,
+		            		  page:that.page}
+			            	that.requestUrl("/VideoInfo","get",src,1);
+		            	}
+		            	
+		            },
+		            skipPage:function(){
+		            	let that=this;
+		            	console.log("",$("#skipPage").val());
+		            	if($("#skipPage").val()>0&&$("#skipPage").val()<=that.totalPage){
+		            		that.page=parseInt($("#skipPage").val())-1;
+
+		            		var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
+		            			that.requestUrl("/VideoInfo","get",src,1);
+		            		
+			            	
+		            	}else{
+		            		alert("请输入正常页码");
+		            	}
+		            	//清空文本
+		            	$("#skipPage").val("");
+		            },
+		            naxtPage:function(){
+		            	let that=this;
+		            	
+		            	if(that.page==that.totalPage-1){
+		            		
+		            		alert("已经是最后一页了！");
+		            	}
+		            	else{
+		            		that.page++;
+		            		var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
+		            			that.requestUrl("/VideoInfo","get",src,1);
+		            			
+		            	}
+		            	
+		            },
+		            endPage:function(){
+		            	let that=this;
+		            	if(that.page==that.totalPage-1){
+		            		
+		            		alert("已经是最后一页了！");
+		            	}
+		            	else{
+			            	that.page=that.totalPage-1;
+			            	var src={
+											tid:that.tid,
+			            		type:that.type,
+		            		  page:that.page}
+										 console.log("src",src);
+		            			that.requestUrl("/VideoInfo","get",src,1);
+		            	}
+		            }
+  		}
+  		,
+        watch: {
+        }
+	})
+</script>
+</body>
+</html>
